@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "learningResults": {
+      "$resultId": {
+        ".read": false,
+        ".write": "auth != null && auth.token.firebase.sign_in_provider === 'anonymous' && !data.exists()",
+        ".validate": "newData.hasChildren(['studentId', 'studentName', 'startedAt', 'submittedAt', 'score', 'totalQuestions', 'selectedAnswers', 'activity'])",
+        "studentId": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 30" },
+        "studentName": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 40" },
+        "startedAt": { ".validate": "newData.isString() && newData.val().length <= 40" },
+        "submittedAt": { ".validate": "newData.isNumber() && newData.val() <= now" },
+        "score": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 7" },
+        "totalQuestions": { ".validate": "newData.val() === 7" },
+        "activity": { ".validate": "newData.val() === 'bun-cha-vocabulary-v1'" },
+        "selectedAnswers": {
+          ".validate": "newData.hasChildren(['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7'])",
+          "q1": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q2": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q3": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q4": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q5": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q6": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "q7": { ".validate": "newData.isString() && newData.val().length <= 20" },
+          "$other": { ".validate": false }
+        },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}
